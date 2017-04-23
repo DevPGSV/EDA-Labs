@@ -10,7 +10,7 @@ int main() {
 	const int MAX_LENGHT = 16;
 	char testString[MAX_LENGHT];
 	string testSubString = "";
-	int testStringLenght = 0, testSubStringLenght = 0;
+	int testStringLenght = testSubStringLenght = 0;
 	static const char characters[] = "123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 	
 	for (int i = 0; i < 5000; i++) { // Number of tests
@@ -43,16 +43,17 @@ int main() {
 // Order: in the worst case: cuadratic
 // P =   {l1 = lenght(v1) ^ l2 = lenght(v2) ^ l1 => l2 >= 0}
 bool subString(char v1[], char v2[], int l1, int l2) {
-	bool found = false;
-	int i = 0, j = 0;
-	while (i < l1 && !found) { // Loop chars in v1
+	bool found;
+	int i = 0;
+	int j;
+	do { // Loop chars in v1
 		j = 0;
 		while (j < l2 && (v1[i + j] == v2[j])) { // Loop chars in v2
 			j++;
 		}
-		if (j == l2) found = true;
+		found = (j == l2);
 		i++;
-	}
+	} while((i < l1 && !found));
 	return found;
 }
 
